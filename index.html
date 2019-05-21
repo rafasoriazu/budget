@@ -1,0 +1,470 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Budget</title>
+    <link rel="stylesheet" href="jquery-ui-1.12.1/jquery-ui.min.css">
+<script src="jquery-ui-1.12.1/external/jquery/jquery.js"></script>
+<script src="jquery-ui-1.12.1/jquery-ui.min.js"></script>
+    <style>
+    .invoice-box {
+        max-width: 800px;
+        margin: auto;
+        padding: 30px;
+        border: 1px solid #eee;
+        box-shadow: 0 0 10px rgba(0, 0, 0, .15);
+        font-size: 16px;
+        line-height: 24px;
+        font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
+        color: #555;
+    }
+    
+    .invoice-box table {
+        width: 100%;
+        line-height: inherit;
+        text-align: left;
+    }
+    
+    .invoice-box table td {
+        padding: 5px;
+        vertical-align: top;
+    }
+    
+    .invoice-box table tr td:nth-child(2) {
+        text-align: right;
+    }
+    
+    .invoice-box table tr.top table td {
+        padding-bottom: 20px;
+    }
+    
+    .invoice-box table tr.top table td.title {
+        font-size: 45px;
+        line-height: 45px;
+        color: #333;
+    }
+    
+    .invoice-box table tr.information table td {
+        padding-bottom: 40px;
+    }
+    
+    .invoice-box table tr.heading td {
+        background: #eee;
+        border-bottom: 1px solid #ddd;
+        font-weight: bold;
+    }
+    
+    .invoice-box table tr.details td {
+        padding-bottom: 20px;
+    }
+    
+    .invoice-box table tr.item td{
+        border-bottom: 1px solid #eee;
+    }
+    
+    .invoice-box table tr.item.last td {
+        border-bottom: none;
+    }
+    
+    .invoice-box table tr.total td:nth-child(2) {
+        border-top: 2px solid #eee;
+        font-weight: bold;
+    }
+    
+    @media only screen and (max-width: 600px) {
+        .invoice-box table tr.top table td {
+            width: 100%;
+            display: block;
+            text-align: center;
+        }
+        
+        .invoice-box table tr.information table td {
+            width: 100%;
+            display: block;
+            text-align: center;
+        }
+    }
+    
+    /** RTL **/
+    .rtl {
+        direction: rtl;
+        font-family: Tahoma, 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
+    }
+    
+    .rtl table {
+        text-align: right;
+    }
+    
+    .rtl table tr td:nth-child(2) {
+        text-align: left;
+    }
+	input{
+		text-align:right;
+	}
+    </style>
+	
+</head>
+
+<body>
+    <div class="invoice-box">
+        <table cellpadding="0" cellspacing="0">
+            <tr class="top">
+                <td colspan="2">
+                    <table>
+                        <tr>
+                            <td class="title">
+                                <img src="Acme-corp.png" style="width:100%; max-width:300px;">
+                            </td>
+                            
+                            <td>
+                                Invoice #: 123<br>
+                                Created: January 1, 2019<br>
+                                Due: February 1, 2019
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            
+            <tr class="information">
+                <td colspan="2">
+                    <table>
+                        <tr>
+                            <td>
+                                Acme Solutions, Inc.<br>
+                                12345 Arrosadia Valley<br>
+                                Pamplona, NA 12345
+                            </td>
+                            
+                            <td>
+                                Road Runner Corp.<br>
+                                mecmec@example.com
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            
+            <tr class="heading">
+                <td>
+                    Variables
+                </td>
+                
+                <td>
+                    
+                </td>
+            </tr>
+            
+            <tr class="item">
+                <td>
+                   Amortización (años)
+                </td>
+
+                <td>
+                    <input type="text" name="years" size="1" value="3" />
+                </td>
+            </tr>         
+			    <tr class="item">
+                <td>
+                 Usuarios
+                </td>
+
+                <td>
+                    <input type="text" id="users" size="1" value="2000" />
+                </td>
+            </tr>
+			<tr class="item">
+                <td>
+                 Espacio por usuario (Gigas)
+                </td>
+
+                <td>
+                    <input type="text" id="space" size="1" value="200" />
+                </td>
+            </tr>
+			<tr class="item last">
+                <td>
+                 Tasa media de utilización
+                </td>
+
+                <td>
+                    <input type="text" id="usage" size="1" value="0.7" />
+                </td>
+            </tr>
+            <tr class="heading">
+                <td>
+                    Espacio Almacenamiento
+                </td>
+                
+                <td>
+                    
+                </td>
+            </tr>
+            
+            <tr class="item">
+                <td>
+                    Tamaño discos (GB)
+                </td>
+                
+                <td>
+                    <input type="text" class="disks" id="diskSize" size="5" value="4000" />
+                </td>
+            </tr>
+            
+            <tr class="item">
+                <td>
+                    Coste Disco 
+                </td>
+                
+                <td>
+                    <input type="text" class="disks" id="diskPrice" size="4" value="120" />
+                </td>
+            </tr>
+            
+            <tr class="item">
+                <td>
+                    Coste por GB de disco
+                </td>
+                
+                <td>
+                    €<span id="diskCost">0,03</span>
+                </td>
+            </tr>
+            <tr class="item">
+                <td>
+                    Precio Appliance
+                </td>
+                
+                <td>
+                    <input type="text" id="appliancePrice" size="5" value="10000" />
+                </td>
+            </tr>
+			 <tr class="item">
+                <td>
+                    Redundancia 
+                </td>
+                
+                <td>
+                    <input type="text" id="ratio" size="1" value="2" />
+                </td>
+            </tr>
+			<tr class="item">
+                <td>
+                    Espacio provisionado disco (GB) 
+                </td>
+                
+                <td>
+                    <span id="diskProvisioned">200</span>
+                </td>
+            </tr>
+			 <tr class="item">
+                <td>
+                    Cantidad de discos
+                </td>
+                
+                <td>
+                    <span id="diskQuantity">200</span>
+                </td>
+            </tr>
+			 <tr class="item">
+                <td>
+                    Discos por appliance
+                </td>
+                
+                <td>
+                    <input type="text" id="disksPerAppliance" size="3" value="45" />
+                </td>
+            </tr>
+			 <tr class="item">
+                <td>
+                    Numero de appliances
+                </td>
+                
+                <td>
+                    <span id="diskAppliances">4</span>
+                </td>
+            </tr>
+				 <tr class="item">
+                <td>
+                    Coste en appliances
+                </td>
+                
+                <td>
+                    €<span id="appliancesCost">44000</span>
+                </td>
+            </tr>
+			  <tr class="heading">
+                <td>
+                    Frontales
+                </td>
+                
+                <td>
+                    
+                </td>
+            </tr>
+			 <tr class="item">
+                <td>
+                    Número de frontales 
+                </td>
+                
+                <td>
+                    <input type="text" id="serversAmount" size="1" value="2" />
+                </td>
+            </tr>
+			<tr class="item">
+                <td>
+                    Precio por frontal 
+                </td>
+                
+                <td>
+                    <input type="text" id="serverPrice" size="5" value="3000" />
+                </td>
+            </tr>
+			 <tr class="item">
+                <td>
+                    Frontales Coste 
+                </td>
+                
+                <td>
+                    €<span id="serversCost">44000</span>
+                </td>
+            </tr>
+			  </tr>
+			  <tr class="heading">
+                <td>
+                    Backup
+                </td>
+                
+                <td>
+                    
+                </td>
+            </tr>
+			 <tr class="item">
+                <td>
+                    Coste backup GB/mes 
+                </td>
+                
+                <td>
+                    <input type="text" id="backupPrice" size="5" value="0.003" />
+                </td>
+            </tr>
+			 <tr class="item">
+                <td>
+                    Ratio
+                </td>
+                
+                <td>
+                    <input type="text" id="backupRatio" size="3" value="1.5" />
+                </td>
+            </tr>
+			<tr class="item">
+                <td>
+                    Coste/Año Backup
+                </td>
+                
+                <td>
+                     €<span id="backupCost">44</span>
+                </td>
+            </tr>
+            <tr class="total">
+                <td></td>
+                
+                <td>
+                   Total Almacenamiento: €<span id="totalStorage">44000</span> 
+                </td>
+            </tr>
+			<tr class="total">
+                <td></td>
+                
+                <td>
+                   Total proyecto: €<span id="total">44000</span>
+                </td>
+            </tr>
+			<tr class="total">
+                <td></td>
+                
+                <td>
+                   Total proyecto usuario año: €<span id="totalUserYear">44000</span>
+                </td>
+            </tr>
+        </table>
+    </div>
+	<script>
+		function estimatedDiskCost(){
+			var diskSize=$("#diskSize").val();
+			var diskPrice=$("#diskPrice").val();
+			diskCost=diskPrice/diskSize;
+			$("#diskCost").text(diskCost);
+		}
+		function estimatedDiskAmount(){
+			var users=$("#users").val();
+			var userSpace=$("#space").val();
+			var diskSize=$("#diskSize").val();
+			var usage=$("#usage").val();
+			var ratio=$("#ratio").val();
+			diskProvisioned=users*userSpace*usage*ratio;
+			$("#diskProvisioned").text(diskProvisioned);
+			diskQantity=diskProvisioned/diskSize;
+			$("#diskQuantity").text(diskQantity);
+		}
+		function estimatedDisksPerAppliance(){
+			var disksPerAppliance=$("#disksPerAppliance").val();
+			diskAppliances=Math.ceil(diskQantity/disksPerAppliance);
+			$("#diskAppliances").text(diskAppliances);
+		}
+		function estimatedAppliancesCost(){
+			var appliancePrice=$("#appliancePrice").val();
+			var ratio=$("#ratio").val();
+			appliancesCost=diskAppliances*appliancePrice*ratio;
+			$("#appliancesCost").text(appliancesCost);
+		}
+		function estimatedServersCost(){
+			var serversAmount=$("#serversAmount").val();
+			var serverPrice=$("#serverPrice").val();
+			serversCost=serverPrice*serversAmount;
+			$("#serversCost").text(serversCost);
+		}
+		function estimatedBackupCost(){
+			var users=$("#users").val();
+			var userSpace=$("#space").val();
+			var usage=$("#usage").val();
+			var backupPrice=$("#backupPrice").val();
+			var backupRatio=$("#backupRatio").val();
+			backupCost=Math.trunc(backupPrice*backupRatio*users*userSpace*usage*12);
+			$("#backupCost").text(backupCost);
+		}
+		function estimatedTotalStorage(){
+			var ratio=$("#ratio").val();
+			totalStorage=Math.trunc(appliancesCost+diskCost*diskQantity);
+			$("#totalStorage").text(totalStorage);
+		}
+		function estimatedTotal(){
+			total=totalStorage+backupCost*3+serversCost;
+			$("#total").text(total);
+		}
+		function estimatedTotalUserYear(){
+			var users=$("#users").val();
+			totalUserYear=total/(3*users)
+			$("#totalUserYear").text(totalUserYear);
+		}
+		function updateAll(){
+			estimatedDiskCost();
+			estimatedDiskAmount();
+			estimatedDisksPerAppliance();
+			estimatedAppliancesCost();
+			estimatedServersCost();
+			estimatedBackupCost();
+			estimatedTotalStorage();
+			estimatedTotal();
+			estimatedTotalUserYear();
+		}
+		
+		$("input").change(function() {
+			updateAll();
+		});
+		$(document).ready(function(){
+			updateAll();
+		});
+	</script>
+</body>
+</html>
