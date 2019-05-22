@@ -236,7 +236,7 @@
                 </td>
                 
                 <td>
-                    <input type="text" id="appliancePrice" size="5" value="10000" />
+                    €<input type="text" id="appliancePrice" size="5" value="10000" />
                 </td>
             </tr>
 			 <tr class="item">
@@ -317,7 +317,7 @@
                 </td>
                 
                 <td>
-                    <input type="text" id="serverPrice" size="5" value="3000" />
+                    €<input type="text" id="serverPrice" size="5" value="3000" />
                 </td>
             </tr>
 			 <tr class="item">
@@ -345,7 +345,7 @@
                 </td>
                 
                 <td>
-                    <input type="text" id="backupPrice" size="5" value="0.003" />
+                    €<input type="text" id="backupPrice" size="5" value="0.003" />
                 </td>
             </tr>
 			 <tr class="item">
@@ -446,7 +446,7 @@
 		function estimatedTotalUserYear(){
 			var years=$("#years").val();
 			var users=$("#users").val();
-			totalUserYear=total/(years*users)
+			totalUserYear=Math.trunc(total/(years*users))
 			$("#totalUserYear").text(totalUserYear);
 		}
 		function updateAll(){
