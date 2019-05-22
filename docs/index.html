@@ -366,13 +366,13 @@
                      €<span id="backupCost">44</span>
                 </td>
             </tr>
-            <tr class="total">
+            <!--<tr class="total">
                 <td></td>
                 
                 <td>
                    Total Almacenamiento: €<span id="totalStorage">44000</span> 
                 </td>
-            </tr>
+            </tr>-->
 			<tr class="total">
                 <td></td>
                 
@@ -384,7 +384,7 @@
                 <td></td>
                 
                 <td>
-                   Total proyecto usuario año: €<span id="totalUserYear">44000</span>
+                   Coste usuario año: €<span id="totalUserYear">44000</span>
                 </td>
             </tr>
         </table>
@@ -435,7 +435,8 @@
 		}
 		function estimatedTotalStorage(){
 			var ratio=$("#ratio").val();
-			totalStorage=Math.trunc(appliancesCost+diskCost*diskQantity);
+			var diskPrice=$("#diskPrice").val()
+			totalStorage=Math.trunc(appliancesCost+(diskPrice*diskQantity));
 			$("#totalStorage").text(totalStorage);
 		}
 		function estimatedTotal(){
