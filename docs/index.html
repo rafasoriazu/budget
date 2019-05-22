@@ -161,7 +161,7 @@
                 </td>
 
                 <td>
-                    <input type="text" name="years" size="1" value="3" />
+                    <input type="text" id="years" size="1" value="3" />
                 </td>
             </tr>         
 			    <tr class="item">
@@ -439,12 +439,14 @@
 			$("#totalStorage").text(totalStorage);
 		}
 		function estimatedTotal(){
-			total=totalStorage+backupCost*3+serversCost;
+			var years=$("#years").val();
+			total=totalStorage+backupCost*years+serversCost;
 			$("#total").text(total);
 		}
 		function estimatedTotalUserYear(){
+			var years=$("#years").val();
 			var users=$("#users").val();
-			totalUserYear=total/(3*users)
+			totalUserYear=total/(years*users)
 			$("#totalUserYear").text(totalUserYear);
 		}
 		function updateAll(){
