@@ -6,6 +6,9 @@
     <link rel="stylesheet" href="jquery-ui-1.12.1/jquery-ui.min.css">
 <script src="jquery-ui-1.12.1/external/jquery/jquery.js"></script>
 <script src="jquery-ui-1.12.1/jquery-ui.min.js"></script>
+<script src="Chart.min.js"></script>
+<script src="chartjs-plugin-colorschemes.js"></script>
+
     <style>
     .invoice-box {
         max-width: 800px;
@@ -268,6 +271,14 @@
             </tr>
 			 <tr class="item">
                 <td>
+                    Coste total en discos
+                </td>
+                <td>
+                    €<span id="disksCost">30000</span>
+                </td>
+            </tr>
+			 <tr class="item">
+                <td>
                     Discos por appliance
                 </td>
                 
@@ -388,8 +399,10 @@
                 </td>
             </tr>
         </table>
+					<canvas id="chartjs-4" class="chartjs" width="undefined" height="undefined"></canvas>
 			<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/"><img alt="Licencia de Creative Commons" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png" /></a>
     </div>
+
 
 	<script>
 		function estimatedDiskCost(){
@@ -408,6 +421,11 @@
 			$("#diskProvisioned").text(diskProvisioned);
 			diskQantity=diskProvisioned/diskSize;
 			$("#diskQuantity").text(diskQantity);
+		}
+		function estimatedDisksCost(){
+			var diskPrice=$("#diskPrice").val();
+			disksCost=diskQantity*diskPrice;
+			$("#disksCost").text(disksCost);
 		}
 		function estimatedDisksPerAppliance(){
 			var disksPerAppliance=$("#disksPerAppliance").val();
@@ -455,6 +473,7 @@
 		function updateAll(){
 			estimatedDiskCost();
 			estimatedDiskAmount();
+			estimatedDisksCost();
 			estimatedDisksPerAppliance();
 			estimatedAppliancesCost();
 			estimatedServersCost();
@@ -466,10 +485,37 @@
 		
 		$("input").change(function() {
 			updateAll();
+			buidGraph();
 		});
 		$(document).ready(function(){
 			updateAll();
+			buidGraph();
 		});
-	</script>
+	
+	function buidGraph(){
+		var ctx = document.getElementById('chartjs-4').getContext('2d');
+		var years=$("#years").val();
+		// And for a doughnut chart
+		data = {
+			datasets: [{
+				data: [backupCost*years,disksCost , appliancesCost,serversCost]
+			}],
+	
+			// These labels appear in the legend and in the tooltips when hovering different arcs
+			labels: ['Backup','Discos','Appliances','servers']
+		};
+		var myDoughnutChart = new Chart(ctx, {
+			type: 'doughnut',
+			data: data,
+		options: 
+				{
+					plugins: 
+						{
+							colorschemes: {scheme: 'brewer.Paired12'}
+						}
+				}
+		});
+	}
+</script>
 </body>
 </html>
