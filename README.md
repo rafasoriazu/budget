@@ -1,3 +1,7 @@
+[Visita la demo](https://rafasoriazu.github.io/budget/)
+
+[ON-PREMISES vs The big SaaS vendors. Jornadas Técnicas de RedIRIS 2019](https://www.rediris.es/jt/jt2019/programa/jt/ponencias/?id=jt2019-jt--a31b8c1.pdf)
+
 ## Correo electrónico, almacenamiento de archivos, herramientas colaborativas y gestión documental, ¿Tienen los sistemas on-premise alguna posibilidad frente a los grandes proveedores en la nube?
 
 Google y Microsoft Office 365 ofrecen a precios muy competitivos sus soluciones. No hay duda de que son muy buenos ¿Hay alguna posibilidad de ofrecer un igual o mejor servicio económicamente viable? ¿Estamos haciendo bien en dejar en manos de estas organizaciones datos sensibles? ¿Cuál es el coste real? Son muchas las preguntas y difíciles las respuestas. Este trabajo no busca responderlas todas, hay muchas que dependen de cada organización y los riesgos que decidan asumir. 
